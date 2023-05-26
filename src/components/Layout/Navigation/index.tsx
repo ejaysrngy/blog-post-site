@@ -1,10 +1,28 @@
-import React from 'react'
-import { NavigationTypes } from './types'
+import React from "react";
+import Link from "next/link";
+import classes from './navigation.module.scss'
+
+import { NavigationTypes } from "./types";
+
 
 export default function Navigation(props: NavigationTypes) {
-  const {navLinks} = props
-    
+  const { navLinks } = props;
+
   return (
-    <div>{navLinks}</div>
-  )
+    <header className={classes.header}>
+      <nav>
+        <ul className={classes.navlists}>
+          {navLinks?.map((item, index) => {
+            return (
+              <li key={index}>
+                <Link href={`/${item.link}`}>
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </header>
+  );
 }
