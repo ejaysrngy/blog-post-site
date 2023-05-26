@@ -1,12 +1,6 @@
 import MainLayout from "@/components/Layout";
 import { AppProps } from "next/app";
-
-import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
-
-const {
-    augmentDocumentWithEmotionCache,
-    withAppEmotionCache
-} = createEmotionSsrAdvancedApproach({ key: "css" });
+import './globals.css'
 
 const MyApp = ({Component, pageProps}: AppProps) => {
     return <MainLayout>
@@ -14,6 +8,4 @@ const MyApp = ({Component, pageProps}: AppProps) => {
     </MainLayout>
 }
 
-export { augmentDocumentWithEmotionCache };
-
-export default withAppEmotionCache(MyApp);
+export default MyApp;

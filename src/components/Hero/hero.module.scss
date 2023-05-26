@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  padding: 4em 2em;
+  justify-content: center;
+  background: #E1D4BB;
+}
+
+.cardContents {
+  gap: 1em;
+  width: 50%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.text {
+  font-size: 2em;
+}
