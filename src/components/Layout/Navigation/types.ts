@@ -1,3 +1,3 @@
 export interface NavigationTypes {
-  navLinks?: Array<string>;
+  navLinks?: Array<{name: string, link: string}>;
 }

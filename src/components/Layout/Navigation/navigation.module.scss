@@ -1,0 +1,19 @@
+.header {
+  padding: 1em;
+  background: #E1D4BB;
+}
+
+.navlists {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  a {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
