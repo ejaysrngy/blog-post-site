@@ -7,7 +7,7 @@ import classes from './layout.module.scss'
 export default function MainLayout(props: LayoutTypes) {
   const { children } = props;
   return (
-    <div className={classes.layout}>
+    <>
       <Navigation
         navLinks={[
           { name: "Home", link: "" },
@@ -16,6 +16,13 @@ export default function MainLayout(props: LayoutTypes) {
         ]}
       />
       <main className={classes.main}>{children}</main>
-    </div>
+      {/* <Navigation
+        navLinks={[
+          { name: "Home", link: "" },
+          { name: "Posts", link: "posts" },
+          { name: "Contact", link: "contact" },
+        ]}
+      /> */}
+    </>
   );
 }

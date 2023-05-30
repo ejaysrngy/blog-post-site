@@ -1,0 +1,19 @@
+.container {
+    gap: 2em;
+    height: 100%;
+    display: flex;
+    padding: 2em 4em;
+    flex-direction: column;
+}
+
+.titleContainer {
+    text-align: center;
+}
+
+.postsContainer {
+    gap: 2em 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

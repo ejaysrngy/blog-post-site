@@ -12,7 +12,7 @@ export default function HeroSection() {
           Hi! Welcome to my blog posts!
         </Typography>
         <Typography>
-          This project is a personal project to practice NextJS and create a fullstack project with React.
+          This is a personal project for me to practice NextJS and learn the ins and outs of a Fullstack project
         </Typography>
       </Card>
     </div>

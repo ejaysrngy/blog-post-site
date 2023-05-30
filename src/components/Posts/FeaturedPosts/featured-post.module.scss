@@ -1,0 +1,25 @@
+.root {
+    gap: 2em;
+    padding: 2em;
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    background: #537188;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.titleContainer {
+    p {
+        font-size: 2em;
+    }
+
+}
+
+.featPostCardsContainer {
+    gap: 1em 0;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
