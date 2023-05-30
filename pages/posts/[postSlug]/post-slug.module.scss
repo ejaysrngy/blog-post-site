@@ -1,0 +1,27 @@
+.root {
+    height: 100%;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.articleContainer {
+    gap: 1em;
+    width: 80vw;
+    padding: 2em;
+    display: flex;
+    border-radius: 1em;
+    flex-direction: column;
+    border: 1px solid #c2c2c2;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    width: 60%;
+    word-wrap: break-word;
+}
