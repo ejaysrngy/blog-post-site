@@ -1,20 +1,26 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-import HeroSection from './Hero';
+import HeroSection from "./Hero";
 
-import PostCards from './Posts/PostCards';
-import SinglePostComponent from './Posts/SinglePost';
-const FeaturedPosts = dynamic(() => import('./Posts/FeaturedPosts'), {loading: () => <span> Loading... </span>})
+import PostCards from "./Posts/PostCards";
+import SinglePostComponent from "./Posts/SinglePost";
+const FeaturedPosts = dynamic(() => import("./Posts/FeaturedPosts"), {
+  loading: () => <span> Loading... </span>,
+});
 
-import { HeaderComponent } from './common';
+import { HeaderComponent } from "./common";
+
+import ContactForm from "./Contact/ContactForm";
 
 export {
-    // Hero
-    HeroSection,
-    // Posts
-    FeaturedPosts,
-    PostCards,
-    SinglePostComponent,
-    // Components
-    HeaderComponent
-}
+  // Components
+  HeaderComponent,
+  // Contact
+  ContactForm,
+  // Hero
+  HeroSection,
+  // Posts
+  FeaturedPosts,
+  PostCards,
+  SinglePostComponent,
+};

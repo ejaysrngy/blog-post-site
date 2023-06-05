@@ -1,5 +1,5 @@
 export interface FeatPostCardsTypes {
-    datePosted: string
+    date: string
     excerpt: string
     image: string
     key?: any

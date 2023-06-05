@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 
-.articleContainer {
+.contentContainer {
     gap: 3em;
     width: 80vw;
     padding: 2em;
@@ -24,4 +24,18 @@
 .title {
     width: 60%;
     word-wrap: break-word;
+}
+
+.articleContainer {
+    line-height: 2.5rem;
+
+    ul {
+        margin-left: 2em;
+    }
+
+    .articleImgContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }

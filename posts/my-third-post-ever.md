@@ -9,4 +9,4 @@ key: 3
 
 # This is a sample post
 
-this is just normal text with Rick and morty in iT but it's three times
+this is just normal text with Rick and morty in iT but it's three times 24

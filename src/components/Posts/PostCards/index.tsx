@@ -8,21 +8,26 @@ import classes from "./postcards.module.scss";
 import Link from "next/link";
 
 const PostCards = (props: PostCardsTypes) => {
-  const { excerpt, datePosted, imageFile, title, slug } = props;
+  const { excerpt, date, image, title, slug } = props;
+
+  const convertedDate = new Date(date).toISOString().substring(0, 10);
+
   return (
-    <Link href={`/posts/${slug}`} style={{textDecoration: 'none'}}>
+    <Link href={`/posts/${slug}`} style={{ textDecoration: "none" }}>
       <Card className={classes.root}>
-        <Image
-          alt={title}
-          width={300}
-          height={300}
-          src={imageFile}
-          priority={false}
-        />
+        <div className={classes.imageContainer}>
+          <Image
+            alt={title}
+            width={300}
+            height={300}
+            src={image}
+            priority={false}
+          />
+        </div>
         <div className={classes.textContainer}>
-          <div>
+          <div className={classes.titleDate}>
             <Typography variant="h4">{title}</Typography>
-            <Typography>Posted on: {datePosted}</Typography>
+            <Typography>Posted on: {convertedDate}</Typography>
           </div>
           <div className={classes.descriptionContainer}> {excerpt} </div>
         </div>

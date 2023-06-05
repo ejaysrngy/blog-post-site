@@ -1,25 +1,40 @@
 import React from "react";
 
-import { useRouter } from "next/router";
+import { getAllPosts, getPostData } from "@/utils/posts-utils";
 import { SinglePostComponent } from "@/components";
+import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 
-export default function SinglePostPage() {
-  const router = useRouter();
+export default function SinglePostPage(
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) {
+  const { postData } = props;
 
-  const { postSlug } = router.query;
-
-  const DUMMY_DATA = {
-    datePosted: "05/25/2023",
-    excerpt: "# Test desciprtionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
-    image:
-      "https://static.wikia.nocookie.net/rickandmorty/images/e/ee/Morty501.png/revision/latest?cb=20210827150137",
-    key: 1,
-    title: "Test Title 1 Test Title 1 Test Title 1 Test Title 1 Test Title 1",
-    slug: "test-title-1",
-    content: '# This is the content'
-  };
-
-  return (
-    <SinglePostComponent postDetails={DUMMY_DATA} />
-  );
+  return <SinglePostComponent postDetails={postData} />;
 }
+
+export const getStaticProps: GetStaticProps = (context) => {
+  const { params } = context;
+
+  let postData;
+  if (params) {
+    postData = getPostData(`${params.postSlug as string}.md`);
+  }
+
+  return {
+    props: {
+      postData,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allPosts = getAllPosts();
+  const allPaths = allPosts.map((item) => {
+    return { params: { postSlug: item?.slug } };
+  });
+
+  return {
+    paths: allPaths,
+    fallback: false,
+  };
+};

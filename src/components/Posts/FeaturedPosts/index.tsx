@@ -7,7 +7,6 @@ import { FeatPostsPageComponentTypes } from "./types";
 
 export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
   const {postsData} = props
-  console.log(typeof postsData[0].key)
 
   return (
     <section className={classes.root}>
@@ -24,7 +23,7 @@ export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
               excerpt={post.excerpt}
               content={post.content}
               image={post.image}
-              datePosted={post.datePosted}
+              date={post.date}
             />
           );
         })}

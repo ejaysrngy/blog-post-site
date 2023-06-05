@@ -1,0 +1,40 @@
+.root {
+    gap: 1vw;
+    width: 100%;
+    display: flex;
+    padding: 2em 0;
+    justify-content: center;
+
+    @media screen and (max-width: 900px) {
+        flex-direction: column;
+    }
+}
+
+.textContainer {
+    flex: 1;
+    padding: 2em;
+    max-width: 40vw;
+
+    @media screen and (max-width: 900px) {
+        max-width: 100%;
+    }
+}
+
+.formContainer {
+    gap: 1vh;
+    width: 35vw;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    @media screen and (max-width: 900px) {
+        width: 100%;
+    }
+}
+
+.buttonContainer {
+    display: flex;
+    margin-top: 1em;
+    justify-content: flex-end;
+}

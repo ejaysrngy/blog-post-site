@@ -7,7 +7,7 @@ import { Card, Typography } from "@mui/material";
 import { FeatPostCardsTypes } from "./types";
 
 function FeatPostCards(props: FeatPostCardsTypes) {
-  const { excerpt, datePosted, image, title, slug } = props;
+  const { excerpt, date, image, title, slug } = props;
 
   return (
     <Link href={`/posts/${slug}`} style={{ textDecoration: "none" }}>
@@ -24,7 +24,7 @@ function FeatPostCards(props: FeatPostCardsTypes) {
         <div className={classes.textSection}>
           <div className={classes.header}>
             <Typography variant="h6">{title}</Typography>
-            <div>{datePosted}</div>
+            <div>{date}</div>
           </div>
           <div className={classes.description}>{excerpt}</div>
         </div>
