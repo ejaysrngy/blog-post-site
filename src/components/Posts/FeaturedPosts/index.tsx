@@ -17,7 +17,7 @@ export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
         {postsData.map((post) => {
           return (
             <FeatPostCards
-              key={post.key}
+              key={crypto.randomUUID()}
               slug={post.slug}
               title={post.title}
               excerpt={post.excerpt}

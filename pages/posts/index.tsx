@@ -20,15 +20,16 @@ export default function AllPosts(
       <div className={classes.postsContainer}>
         {postData.map((post: FeatPostCardsTypes) => {
           return (
-            <PostCards
-              key={post.key}
-              date={post.date}
-              excerpt={post.excerpt}
-              image={post.image}
-              title={post.title}
-              slug={post.slug}
-              content={post.content}
-            />
+            <div key={crypto.randomUUID()}>
+              <PostCards
+                date={post.date}
+                excerpt={post.excerpt}
+                image={post.image}
+                title={post.title}
+                slug={post.slug}
+                content={post.content}
+              />
+            </div>
           );
         })}
       </div>
