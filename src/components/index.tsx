@@ -12,7 +12,11 @@ import { HeaderComponent } from "./common";
 
 import ContactForm from "./Contact/ContactForm";
 
+import SignUpLoginContainer from "./Account/SignUpLogin";
+
 export {
+  // Account
+  SignUpLoginContainer,
   // Components
   HeaderComponent,
   // Contact

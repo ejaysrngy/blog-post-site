@@ -3,12 +3,20 @@
   background: #E1D4BB;
 }
 
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 .navlists {
+  gap: 2em;
   width: 100%;
   display: flex;
+  flex: 0 1 auto;
   list-style: none;
+  align-items: center;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 
   a {
     color: inherit;
@@ -16,4 +24,13 @@
     text-decoration: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+}
+
+.logo {
+  padding: 0 1em
+}
+
+.login {
+  flex: 1 0 auto;
+  padding: 0 1em;
 }
