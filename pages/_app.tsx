@@ -1,13 +1,13 @@
-import MainLayout from "@/components/Layout";
-import Head from "next/head";
-
-import { ThemeProvider } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
-import { AppProps } from "next/app";
-
-import { CacheProvider, EmotionCache } from "@emotion/react";
+import Head from "next/head";
+import MainLayout from "@/components/Layout";
+import CssBaseline from "@mui/material/CssBaseline";
 import createEmotionCache from "@/createEmotionCache";
+
+import { AppProps } from "next/app";
+import { ThemeProvider } from "@mui/material";
+import { AuthContextProvider } from "@/components/common";
+import { CacheProvider, EmotionCache } from "@emotion/react";
 
 import "./globals.css";
 
@@ -31,9 +31,11 @@ const MyApp = ({
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
+        <AuthContextProvider>
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        </AuthContextProvider>
       </ThemeProvider>
     </CacheProvider>
   );
