@@ -26,7 +26,7 @@ const PostCards = (props: PostCardsTypes) => {
         </div>
         <div className={classes.textContainer}>
           <div className={classes.titleDate}>
-            <Typography variant="h4">{title}</Typography>
+            <Typography variant="h5">{title}</Typography>
             <Typography>Posted on: {convertedDate}</Typography>
           </div>
           <div className={classes.descriptionContainer}> {excerpt} </div>

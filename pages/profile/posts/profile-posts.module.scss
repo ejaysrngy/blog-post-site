@@ -1,0 +1,11 @@
+.root {
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.posts {
+    gap: 3em;
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -12,6 +12,10 @@
     gap: 1em;
     display: flex;
     flex-direction: column;
+
+    p {
+        color: #ff0000;
+    }
 }
 
 .btnContainer {

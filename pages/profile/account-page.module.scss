@@ -1,0 +1,30 @@
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.sidebar {
+  width: 20vw;
+  height: 100%;
+  flex: 0 1 auto;
+  padding: 1em 2em;
+  border: 1px solid black;
+
+  .menu {
+    gap: 1em;
+    display: flex;
+    margin-top: 2em;
+    flex-direction: column;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+.contents {
+  flex: 2;
+  padding: 2em;
+}
