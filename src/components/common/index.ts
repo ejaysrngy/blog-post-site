@@ -1,3 +1,5 @@
 import HeaderComponent from "./Header";
 
-export { HeaderComponent };
+import { AuthContextProvider } from "./AuthProvider/useAuthProvider";
+
+export { HeaderComponent, AuthContextProvider };
