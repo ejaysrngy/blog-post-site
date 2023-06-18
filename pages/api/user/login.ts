@@ -1,14 +1,6 @@
 import { LoginRequestTypes, LoginResponseTypes } from "./types";
 
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-
 async function handler(req: LoginRequestTypes, res: LoginResponseTypes) {
-  const auth = getAuth();
-
   if (req.method === "POST") {
     const { username, password } = req.body;
 
@@ -26,18 +18,9 @@ async function handler(req: LoginRequestTypes, res: LoginResponseTypes) {
       return;
     }
 
-    const response = await signInWithEmailAndPassword(auth, username, password);
-    const accessToken = await response.user.getIdToken();
-
-    // *onAuthStateChanged only works when it exists along with signInWithEmailAndPassword
-    // onAuthStateChanged(auth, (user: any) => {
-    //   console.log("ON AUTH CHANGE", user);
-    // });
-
     res.status(200).json({
-      message: "Sign up success!",
+      message: "Sign in success!",
       success: true,
-      access_token: accessToken,
     });
     res.end();
   }

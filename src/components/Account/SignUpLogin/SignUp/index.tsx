@@ -30,7 +30,7 @@ const schema = yup.object({
     .min(8, "Password should at least be 8 characters long"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
+    .oneOf([yup.ref("password")], "Passwords must match")
     .required("This field is required"),
 });
 
@@ -51,20 +51,18 @@ function SignUp(props: { backBtnHandler: () => void }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<SignUpTypes> = async (data) => {
-    const {username, password} = data
+    const { username, password } = data;
 
-    const response = await fetch("/api/user/register", {
+    await fetch("/api/user/register", {
       method: "POST",
       body: JSON.stringify({
         username: username,
-        password: password
+        password: password,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    console.log(response)
   };
 
   const handleShowPassword = () => {

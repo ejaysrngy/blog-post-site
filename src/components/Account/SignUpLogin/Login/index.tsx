@@ -34,6 +34,7 @@ type FormData = yup.InferType<typeof schema>;
 
 function Login(props: { signUpBtnHandler: () => void }) {
   const { signUpBtnHandler } = props;
+  const { login } = useAuthContext()
 
   const {
     register,
@@ -48,16 +49,8 @@ function Login(props: { signUpBtnHandler: () => void }) {
   const onSubmit: SubmitHandler<LoginFieldTypes> = async (data) => {
     const {username, password} = data
 
-    const response = await fetch("/api/user/login", {
-      method: "POST",
-      body: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    login(username, password)
+
 
   };
 
