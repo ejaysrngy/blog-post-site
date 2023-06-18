@@ -8,7 +8,7 @@ const FeaturedPosts = dynamic(() => import("./Posts/FeaturedPosts"), {
   loading: () => <span> Loading... </span>,
 });
 
-import { HeaderComponent } from "./common";
+import { HeaderComponent, MenuComponent } from "./common";
 
 import ContactForm from "./Contact/ContactForm";
 
@@ -19,6 +19,7 @@ export {
   SignUpLoginContainer,
   // Components
   HeaderComponent,
+  MenuComponent,
   // Contact
   ContactForm,
   // Hero

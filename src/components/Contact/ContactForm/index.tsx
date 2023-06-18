@@ -1,7 +1,9 @@
 import React, { useReducer, memo, useState } from "react";
 
+import useContactStore from "@/zustand/contactStore";
 import classes from "./contact-form.module.scss";
 
+import { shallow } from "zustand/shallow";
 import { reducer, initialState } from "./reducer";
 import {
   Button,
@@ -12,43 +14,30 @@ import {
 } from "@mui/material";
 
 function ContactForm() {
+  const { sendFeedback, closeNotif } = useContactStore(
+    (state: any) => ({
+      sendFeedback: state.sendFeedback,
+      closeNotif: state.closeNotif,
+    }),
+    shallow
+  );
+  const notification = useContactStore((state: any) => state.notification);
+
   // form states
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  // notif state
-  const [formNotif, setFormNotif] = useState({
-    text: "",
-    status: false,
-  });
 
   const { email, name, message } = state;
 
   const submitMessageHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const response = await fetch("/api/contact/send-message", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        name: name,
-        message: message,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const payload = {
+      email: email,
+      name: name,
+      message: message,
+    };
 
-    if (!response.ok) {
-      setFormNotif({
-        text: "Failed to send. Please try again",
-        status: true,
-      });
-    } else {
-      setFormNotif({
-        text: "Thank you for your feedback!",
-        status: true,
-      });
-    }
+    sendFeedback(payload);
   };
 
   const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,13 +52,6 @@ function ContactForm() {
     dispatch({
       type: "UPDATE_MESSAGE",
       payload: { message: event.target.value },
-    });
-  };
-
-  const closeNotif = () => {
-    setFormNotif({
-      text: "",
-      status: false,
     });
   };
 
@@ -119,9 +101,9 @@ function ContactForm() {
 
       <Snackbar
         onClose={closeNotif}
-        open={formNotif.status}
+        open={notification.status}
         autoHideDuration={5000}
-        message={formNotif.text}
+        message={notification.text}
       />
     </div>
   );
