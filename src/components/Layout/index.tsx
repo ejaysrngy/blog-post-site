@@ -16,13 +16,6 @@ export default function MainLayout(props: LayoutTypes) {
         ]}
       />
       <main className={classes.main}>{children}</main>
-      {/* <Navigation
-        navLinks={[
-          { name: "Home", link: "" },
-          { name: "Posts", link: "posts" },
-          { name: "Contact", link: "contact" },
-        ]}
-      /> */}
     </>
   );
 }
