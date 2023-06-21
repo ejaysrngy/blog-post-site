@@ -1,6 +1,6 @@
 import React from "react";
 import AccountLayout from "../layout";
-import classes from './profile-posts.module.scss'
+import classes from "./profile-posts.module.scss";
 
 import { Typography } from "@mui/material";
 import { getAllPosts } from "@/utils/posts-utils";
@@ -19,15 +19,16 @@ function AccountPosts(props: InferGetStaticPropsType<typeof getStaticProps>) {
           <Typography variant="h4"> Your POSTS </Typography>
         </div>
         <div className={classes.posts}>
-          {postData.map((post: PostCardsTypes) => {
+          {postData.map((post: PostCardsTypes, index: string) => {
             return (
               <PostCards
+                key={index}
                 date={post.date}
-                excerpt={post.excerpt}
+                slug={post.slug}
                 image={post.image}
                 title={post.title}
-                slug={post.slug}
                 content={post.content}
+                excerpt={post.excerpt}
               />
             );
           })}

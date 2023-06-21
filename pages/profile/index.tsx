@@ -1,24 +1,34 @@
-import React, { useEffect } from "react";
+import React from "react";
+import nookies from "nookies";
 
-import { useRouter } from "next/router";
 import AccountLayout from "./layout";
-import { useAuthContext } from "@/components/common/AuthProvider/useAuthProvider";
+import { firebaseAdmin } from "../api/firebase/admin";
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 
-function AccountPage() {
-  const router = useRouter()
-  const {currentUser} = useAuthContext()
-
-  useEffect(() => {
-    if (currentUser) {
-      router.replace('/', undefined, { shallow: true })
-    }
-  }, [currentUser])
-
+function AccountPage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   return (
     <AccountLayout>
       <div> TEST </div>
     </AccountLayout>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    // fetch cookies from the AuthProvider
+    const cookies = nookies.get(ctx);
+    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+
+    return {
+      props: { token: token },
+    };
+  } catch (err) {
+    ctx.res.writeHead(302, { Location: "/" });
+    ctx.res.end();
+    return { props: {} as never };
+  }
+};
 
 export default AccountPage;

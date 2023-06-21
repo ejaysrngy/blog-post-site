@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import nookies from "nookies";
 
-import { usePathname } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../../pages/api/firebase/config";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import useAccountStore from "@/store/accountStore";
 
 type AuthContextType = {
   currentUser: any;
@@ -22,16 +23,35 @@ export const AuthContextProvider = ({
 }: {
   children: JSX.Element;
 }) => {
-  const pathname = usePathname();
-  const [currentUser, setCurrentUser] = useState<any>();
+  const setUser = useAccountStore((state: any) => state.setUser);
+  const clearUser = useAccountStore((state: any) => state.clearUser);
+
+  const [currentUser, setCurrentUser] = useState<Object | null>();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: any) => {
-      setCurrentUser(user);
+      if (user) {
+        const { accessToken, email, displayName } = user;
+
+        setCurrentUser(user);
+        setUser({
+          email: email,
+          username: displayName,
+          accessToken: accessToken,
+        });
+
+        // store in token ID in cookies
+        nookies.set(undefined, "token", user.stsTokenManager.accessToken, {
+          path: "/",
+        });
+      } else {
+        setCurrentUser(null);
+        nookies.set(undefined, "token", "", { path: "/" });
+      }
       console.log("Auth state changed");
     });
     return unsub;
-  }, [pathname]);
+  }, []);
 
   async function login(username: string, password: string) {
     // call API regardless to pass it through the validation
@@ -65,10 +85,12 @@ export const AuthContextProvider = ({
   }
 
   function logout() {
+    clearUser();
+
     return signOut(auth);
   }
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <AuthContext.Provider value={{ login, logout, currentUser }}>
