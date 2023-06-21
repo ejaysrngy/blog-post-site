@@ -1,6 +1,6 @@
 import theme from "@/theme";
 import Head from "next/head";
-import MainLayout from "@/components/Layout";
+import { MainLayout } from "@/components";
 import CssBaseline from "@mui/material/CssBaseline";
 import createEmotionCache from "@/createEmotionCache";
 

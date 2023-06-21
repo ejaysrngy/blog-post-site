@@ -109,7 +109,7 @@ function Login(props: { signUpBtnHandler: () => void }) {
         </Button>
       </div>
       <div className={classes.createAccountContainer}>
-        <Typography>Don't have an account?</Typography>
+        <Typography>{"Don't have an account?"}</Typography>
         <Button variant="text" onClick={signUpBtnHandler}>
           Sign up here!
         </Button>

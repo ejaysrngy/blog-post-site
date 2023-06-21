@@ -1,15 +1,21 @@
 import React, { useState } from "react";
+
 import Link from "next/link";
 import classes from "./navigation.module.scss";
+import useAccountStore from "@/store/accountStore";
 
 import { NavigationTypes } from "./types";
-import { Button, Popover } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { Button, Popover, Avatar } from "@mui/material";
 import { MenuComponent, SignUpLoginContainer } from "@/components";
 import { useAuthContext } from "@/components/common/AuthProvider/useAuthProvider";
 
-export default function Navigation(props: NavigationTypes) {
+function Navigation(props: NavigationTypes) {
   const { navLinks } = props;
-  const { logout, currentUser } = useAuthContext();
+  const router = useRouter();
+  const { logout } = useAuthContext();
+  const user = useAccountStore((state: any) => state.user);
+
 
   // used useState instead of Ref since the first click doesnt not store the ref
   const [popoverEl, setPopoverEl] = useState<
@@ -26,6 +32,11 @@ export default function Navigation(props: NavigationTypes) {
     setPopoverEl(null);
   };
 
+  const handleLogout = () => {
+    logout();
+    router.replace("/");
+  };
+
   return (
     <header className={classes.header}>
       <nav className={classes.nav}>
@@ -40,10 +51,10 @@ export default function Navigation(props: NavigationTypes) {
           })}
         </ul>
         <div className={classes.login}>
-          {currentUser ? (
+          {user?.accessToken ? (
             <>
-              <Button variant="contained" onClick={handleClick}>
-                Logout
+              <Button onClick={handleClick}>
+                <Avatar />
               </Button>
               <MenuComponent
                 anchorEl={popoverEl}
@@ -58,7 +69,7 @@ export default function Navigation(props: NavigationTypes) {
                   },
                   {
                     name: "Logout",
-                    handeClickFn: logout,
+                    handeClickFn: handleLogout,
                     key: crypto.randomUUID(),
                   },
                 ]}
@@ -92,3 +103,5 @@ export default function Navigation(props: NavigationTypes) {
     </header>
   );
 }
+
+export default Navigation;

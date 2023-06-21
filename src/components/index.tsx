@@ -2,6 +2,10 @@ import dynamic from "next/dynamic";
 
 import HeroSection from "./Hero";
 
+const MainLayout = dynamic(() => import("./Layout/index"), {
+  ssr: false,
+});
+
 import PostCards from "./Posts/PostCards";
 import SinglePostComponent from "./Posts/SinglePost";
 const FeaturedPosts = dynamic(() => import("./Posts/FeaturedPosts"), {
@@ -24,6 +28,8 @@ export {
   ContactForm,
   // Hero
   HeroSection,
+  // Layout
+  MainLayout,
   // Posts
   FeaturedPosts,
   PostCards,

@@ -1,6 +1,6 @@
-import React, { useReducer, memo, useState } from "react";
+import React, { useReducer, memo } from "react";
 
-import useContactStore from "@/zustand/contactStore";
+import useContactStore from "@/store/contactStore";
 import classes from "./contact-form.module.scss";
 
 import { shallow } from "zustand/shallow";
