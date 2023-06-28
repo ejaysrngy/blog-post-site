@@ -2,6 +2,9 @@ import HeaderComponent from "./Header";
 
 import MenuComponent from "./Menu";
 
-import { AuthContextProvider } from "./AuthProvider/useAuthProvider";
+import CustomTextField from "./CustomTextField";
+import CustomPasswordInput from "./CustomPasswordInput";
 
-export { HeaderComponent, AuthContextProvider, MenuComponent };
+import { AuthContextProvider } from "../../hooks/AuthProvider/useAuthProvider";
+
+export { HeaderComponent, AuthContextProvider, MenuComponent, CustomTextField, CustomPasswordInput };

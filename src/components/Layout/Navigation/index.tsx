@@ -8,7 +8,7 @@ import { NavigationTypes } from "./types";
 import { useRouter } from "next/navigation";
 import { Button, Popover, Avatar } from "@mui/material";
 import { MenuComponent, SignUpLoginContainer } from "@/components";
-import { useAuthContext } from "@/components/common/AuthProvider/useAuthProvider";
+import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
 
 function Navigation(props: NavigationTypes) {
   const { navLinks } = props;

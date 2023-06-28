@@ -1,23 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 import * as yup from "yup";
+import useUiStore from "@/store/uiStore";
 import classes from "./login.module.scss";
 
 import { LoginFieldTypes } from "./types";
+import { Button, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useAuthContext } from "@/components/common/AuthProvider/useAuthProvider";
-import {
-  Button,
-  TextField,
-  InputLabel,
-  Typography,
-  IconButton,
-  OutlinedInput,
-  InputAdornment,
-  FormHelperText,
-} from "@mui/material";
+import { CustomTextField, CustomPasswordInput } from "@/components/common";
+import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
 
 const schema = yup.object({
   username: yup
@@ -32,9 +24,10 @@ const schema = yup.object({
 
 type FormData = yup.InferType<typeof schema>;
 
-function Login(props: { signUpBtnHandler: () => void }) {
+function Login(props: { signUpBtnHandler?: () => void }) {
   const { signUpBtnHandler } = props;
-  const { login } = useAuthContext()
+  const { login } = useAuthContext();
+  const openNotif = useUiStore((state: any) => state.openNotif);
 
   const {
     register,
@@ -44,63 +37,45 @@ function Login(props: { signUpBtnHandler: () => void }) {
     resolver: yupResolver(schema),
   });
 
-  const [showPassword, setShowPassword] = useState(false);
+  const isNotSignUp = !!signUpBtnHandler;
 
   const onSubmit: SubmitHandler<LoginFieldTypes> = async (data) => {
-    const {username, password} = data
+    const { username, password } = data;
 
-    login(username, password)
+    const response = await login(username, password);
 
-
-  };
-
-  const handleChangeShowPassword = () => {
-    setShowPassword(showPassword ? false : true);
+    if (response?.status) {
+      openNotif({ status: true, text: response.message });
+    } else {
+      openNotif({ status: true, text: response?.message });
+    }
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.title}>
-        <Typography variant="h6">Welcome back!</Typography>
+        {isNotSignUp && <Typography variant="h6">Welcome back!</Typography>}
       </div>
       <form className={classes.fields}>
         <div>
-          <InputLabel htmlFor="username-email"> Username / Email </InputLabel>
-          <TextField
-            fullWidth
+          <CustomTextField
             size="small"
-            id="username-email"
-            error={!!errors.username}
-            {...register("username")}
+            errors={errors}
+            inputId="username-email"
+            reactFormName="username"
+            fieldName="Username / Email"
+            reactFormRegister={{ ...register("username") }}
           />
-          {!!errors.username && (
-            <FormHelperText>{errors.username.message}</FormHelperText>
-          )}
         </div>
         <div>
-          <InputLabel htmlFor="password"> Password </InputLabel>
-          <OutlinedInput
-            fullWidth
+          <CustomPasswordInput
             size="small"
-            id="password"
-            {...register("password")}
-            error={!!errors.password}
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  onClick={handleChangeShowPassword}
-                  aria-label="toggle password visibility"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
+            errors={errors}
+            inputId="password"
+            reactFormName="password"
+            fieldName="Password"
+            reactFormRegister={{ ...register("password") }}
           />
-          {!!errors.password && (
-            <FormHelperText>{errors.password.message}</FormHelperText>
-          )}
         </div>
       </form>
       <div className={classes.btnContainer}>
@@ -108,12 +83,14 @@ function Login(props: { signUpBtnHandler: () => void }) {
           Log in
         </Button>
       </div>
-      <div className={classes.createAccountContainer}>
-        <Typography>{"Don't have an account?"}</Typography>
-        <Button variant="text" onClick={signUpBtnHandler}>
-          Sign up here!
-        </Button>
-      </div>
+      {isNotSignUp && (
+        <div className={classes.createAccountContainer}>
+          <Typography>{"Don't have an account?"}</Typography>
+          <Button variant="text" onClick={signUpBtnHandler}>
+            Sign up here!
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
