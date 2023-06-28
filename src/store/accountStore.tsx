@@ -17,7 +17,7 @@ const useAccountStore = create(
         set({
           user: {
             email: payload.email,
-            username: payload.email,
+            username: payload.username,
             accessToken: payload.accessToken,
           },
         }),
@@ -27,7 +27,6 @@ const useAccountStore = create(
     {
       name: "account-storage", // name of the item in the storage (must be unique)
       storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-      getStorage: () => sessionStorage,
       partialize: ({ actions, ...rest }: any) => rest,
     }
   )

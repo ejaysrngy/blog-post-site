@@ -1,16 +1,21 @@
 import React from "react";
 import Link from "next/link";
-import classes from "./account-page.module.scss";
+import classes from "./layout.module.scss";
 
 import { Typography } from "@mui/material";
+import useAccountStore from "@/store/accountStore";
 
 function AccountLayout(props: { children: JSX.Element }) {
   const { children } = props;
+  const user = useAccountStore((state) => state.user);
+
+  const { email, username } = user;
+
   return (
     <div className={classes.root}>
       <aside className={classes.sidebar}>
         <div className={classes.name}>
-          <Typography variant="h5">Your Name</Typography>
+          <Typography variant="h5">Hello, {username ? username : email}!</Typography>
         </div>
         <div className={classes.menu}>
           {(
