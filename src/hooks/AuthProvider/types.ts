@@ -4,17 +4,17 @@ export type AuthContextType = {
   login: (
     username: string,
     password: string
-  ) => Promise<void | { status: number; message: string }> | null; // return response object
+  ) => Promise<void | { status: number; code: string; message: string }> | null; // return response object
   isLoading: boolean;
   updateUserInfo: (payload: {
     displayName?: string;
     username?: string;
-    photoUrl?: string;
-  }) => Promise<void | { status: number; message: string }> | null;
+    photoUrl?: any
+  }) => Promise<void | { status: number; code: string; message: string }> | null;
 };
 
 export type UpdateUserInfoTypes = {
   displayName?: string;
   username?: string;
-  photoUrl?: string;
+  photoUrl?: any
 };

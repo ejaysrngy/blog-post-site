@@ -22,6 +22,7 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
+import useUiStore from "@/store/uiStore";
 
 const schema = yup.object({
   username: yup
@@ -37,6 +38,16 @@ function AccountPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const { currentUser, isLoading, updateUserInfo } = useAuthContext();
+  const openNotif = useUiStore((state: any) => state.openNotif);
+  const reauthenticateModalisOpen = useUiStore(
+    (state: any) => state.reauthenticateModalisOpen
+  );
+  const openReauthenticateModal = useUiStore(
+    (state: any) => state.openReauthenticateModal
+  );
+  const closeReauthenticateModal = useUiStore(
+    (state: any) => state.closeReauthenticateModal
+  );
 
   const {
     register,
@@ -49,7 +60,6 @@ function AccountPage(
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState("");
-  const [reauthenticateUserModal, setReauthenticateUserModal] = useState(false);
 
   useEffect(() => {
     // populate fields if currentUser data is available
@@ -57,7 +67,6 @@ function AccountPage(
 
     if (currentUser) {
       const { displayName, email } = currentUser;
-      console.log(displayName)
 
       fields.forEach((field, index) => {
         setValue(field as any, [displayName, email].at(index));
@@ -68,13 +77,17 @@ function AccountPage(
   const onSubmit: SubmitHandler<any> = async (data) => {
     const { displayName, username } = data;
 
-    const response = await updateUserInfo({ displayName, username });
+    const responseUserInfo = await updateUserInfo({ displayName, username });
 
     if (
-      !response?.status &&
-      response?.message.includes("requires-recent-login")
+      !responseUserInfo?.status &&
+      responseUserInfo?.code.includes("account-info")
     ) {
-      setReauthenticateUserModal(true);
+      openReauthenticateModal();
+    } else if (responseUserInfo?.status) {
+      // set edit mode to false after successful edit
+      setIsEditMode(false);
+      openNotif({ status: true, text: responseUserInfo.message });
     }
   };
 
@@ -159,8 +172,8 @@ function AccountPage(
         </div>
 
         <Modal
-          open={reauthenticateUserModal}
-          onClose={() => setReauthenticateUserModal(false)}
+          open={reauthenticateModalisOpen}
+          onClose={closeReauthenticateModal}
         >
           <Box
             sx={{
@@ -175,6 +188,7 @@ function AccountPage(
               p: 4,
             }}
           >
+            <Typography>Reauthenticate Your Account</Typography>
             <Login />
           </Box>
         </Modal>
