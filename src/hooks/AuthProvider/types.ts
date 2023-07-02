@@ -11,6 +11,8 @@ export type AuthContextType = {
     username?: string;
     photoUrl?: any
   }) => Promise<void | { status: number; code: string; message: string }> | null;
+    photoUrl?: string;
+  }) => Promise<void | { status: number; message: string }> | null;
 };
 
 export type UpdateUserInfoTypes = {

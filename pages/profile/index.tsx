@@ -60,6 +60,7 @@ function AccountPage(
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState("");
+  const [reauthenticateUserModal, setReauthenticateUserModal] = useState(false);
 
   useEffect(() => {
     // populate fields if currentUser data is available
@@ -67,6 +68,7 @@ function AccountPage(
 
     if (currentUser) {
       const { displayName, email } = currentUser;
+      console.log(displayName)
 
       fields.forEach((field, index) => {
         setValue(field as any, [displayName, email].at(index));

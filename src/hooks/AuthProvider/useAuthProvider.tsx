@@ -43,7 +43,6 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        console.log(user);
         const { accessToken, email, displayName } = user;
 
         setCurrentUser(user);
@@ -68,6 +67,8 @@ export const AuthContextProvider = ({
     // change dependency to internal state instead of an external state
     // so that the hook won't rely on anything outside of it's scope 
   }, [isLoading]);
+=======
+  }, []);
 
   useEffect(() => {
     // set isLoading to true if currentUser is still undefined
@@ -136,6 +137,7 @@ export const AuthContextProvider = ({
         };
       } finally {
         setIsLoading(false);
+        };
       }
     }
   }
@@ -164,7 +166,7 @@ export const AuthContextProvider = ({
       });
 
       await updateEmail(auth.currentUser as User, username as string);
-
+            
       const storageRef = ref(storage, `files/${photoUrl}`);
       const uploadTask = uploadBytesResumable(storageRef, photoUrl as any);
 
@@ -194,6 +196,7 @@ export const AuthContextProvider = ({
       }
     } finally {
       setIsLoading(false);
+      }
     }
   }
 
