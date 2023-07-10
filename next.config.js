@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+
+// this is a plugin for nextjs. 
+// The default behavior is to remove all .less/.css/.scss/.sass/.styl imports from all packages in node_modules.
+const removeImports = require("next-remove-imports")();
+
+const nextConfig = removeImports({
   images: {
-    domains: ["static.wikia.nocookie.net", "static.tvtropes.org"],
+    domains: [
+      "static.wikia.nocookie.net",
+      "static.tvtropes.org",
+      "firebasestorage.googleapis.com",
+    ],
   },
   modularizeImports: {
     lodash: {
@@ -17,6 +27,6 @@ const nextConfig = {
       transform: "@material-ui/icons/{{ matches.[1] }}/{{member}}",
     },
   },
-};
+});
 
 module.exports = nextConfig;

@@ -1,11 +1,32 @@
 .root {
-    gap: 1em;
-    display: flex;
-    flex-direction: column;
+  gap: 1em;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.posts {
-    gap: 3em;
+.title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .button {
+    gap: 0.5em;
     display: flex;
-    flex-wrap: wrap;
+    font-size: 1.25em;
+    align-items: center;
+    text-transform: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.content {
+  gap: 3em;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }

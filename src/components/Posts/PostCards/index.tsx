@@ -10,7 +10,7 @@ import Link from "next/link";
 const PostCards = (props: PostCardsTypes) => {
   const { excerpt, date, image, title, slug } = props;
 
-  const convertedDate = new Date(date).toISOString().substring(0, 10);
+  const convertedDate = date.substring(0, 10);
 
   return (
     <Link href={`/posts/${slug}`} style={{ textDecoration: "none" }}>

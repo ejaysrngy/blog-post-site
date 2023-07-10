@@ -21,7 +21,7 @@ function AccountLayout(props: { children: JSX.Element }) {
           {(
             [
               { name: "Account", link: "/profile" },
-              { name: "Your Posts", link: "profile/posts" },
+              { name: "Your Posts", link: "/profile/posts" },
             ] as const
           ).map((item, index) => {
             return (
