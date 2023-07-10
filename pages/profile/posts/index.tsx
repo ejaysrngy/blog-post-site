@@ -1,13 +1,14 @@
 import React from "react";
+import Link from "next/link";
 import AccountLayout from "../layout";
 import classes from "./profile-posts.module.scss";
 
-import { Typography } from "@mui/material";
+import { ModeEdit } from "@mui/icons-material";
 import { getAllPosts } from "@/utils/posts-utils";
+import { Button, Typography } from "@mui/material";
+import { PostCards } from "@/components";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { PostCardsTypes } from "@/components/Posts/PostCards/types";
-
-import { PostCards } from "@/components";
 
 function AccountPosts(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { postData } = props;
@@ -16,9 +17,14 @@ function AccountPosts(props: InferGetStaticPropsType<typeof getStaticProps>) {
     <AccountLayout>
       <div className={classes.root}>
         <div className={classes.title}>
-          <Typography variant="h4"> Your POSTS </Typography>
+          <Typography variant="h4">Your Posts</Typography>
+          <Link href={"posts/create"}>
+            <Button className={classes.button}>
+              <ModeEdit /> Create New Post
+            </Button>
+          </Link>
         </div>
-        <div className={classes.posts}>
+        <div className={classes.content}>
           {postData.map((post: PostCardsTypes, index: string) => {
             return (
               <PostCards

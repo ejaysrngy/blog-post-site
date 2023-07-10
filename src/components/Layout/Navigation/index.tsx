@@ -16,7 +16,6 @@ function Navigation(props: NavigationTypes) {
   const { logout } = useAuthContext();
   const user = useAccountStore((state: any) => state.user);
 
-
   // used useState instead of Ref since the first click doesnt not store the ref
   const [popoverEl, setPopoverEl] = useState<
     (EventTarget & HTMLButtonElement) | null
@@ -54,7 +53,7 @@ function Navigation(props: NavigationTypes) {
           {user?.accessToken ? (
             <>
               <Button onClick={handleClick}>
-                <Avatar />
+                <Avatar src={user.userAvatar} />
               </Button>
               <MenuComponent
                 anchorEl={popoverEl}

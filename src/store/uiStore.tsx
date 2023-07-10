@@ -5,8 +5,11 @@ const useUiStore = create((set) => ({
     text: "",
     status: false,
   },
+
   displayName: "",
+  userAvatar: "",
   reauthenticateModalisOpen: false,
+
   loading: false,
   openNotif: async (payload: { text: string; status: Boolean }) => {
     set({
@@ -22,6 +25,8 @@ const useUiStore = create((set) => ({
   closeReauthenticateModal: () => set({ reauthenticateModalisOpen: false }),
 
   setDisplayName: (name: string) => set({ displayName: name }),
+
+  setUserAvatar: (photoUrl: string) => set({ userAvatar: photoUrl }),
 }));
 
 export default useUiStore;

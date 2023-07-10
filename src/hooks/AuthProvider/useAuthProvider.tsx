@@ -13,9 +13,7 @@ import {
 import { STATUS } from "@/const";
 import useUiStore from "@/store/uiStore";
 import { auth } from "../../../pages/api/firebase/config";
-import { storage } from "../../../pages/api/firebase/config";
 import { AuthContextType, UpdateUserInfoTypes } from "./types";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);
 
@@ -43,11 +41,14 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        const { accessToken, email, displayName } = user;
+        console.log(user);
+        const { accessToken, email, displayName, photoURL, uid } = user;
 
         setCurrentUser(user);
         setUser({
+          uid: uid,
           email: email,
+          userAvatar: photoURL,
           username: displayName,
           accessToken: accessToken,
         });
@@ -65,10 +66,8 @@ export const AuthContextProvider = ({
     return unsub;
 
     // change dependency to internal state instead of an external state
-    // so that the hook won't rely on anything outside of it's scope 
+    // so that the hook won't rely on anything outside of it's scope
   }, [isLoading]);
-=======
-  }, []);
 
   useEffect(() => {
     // set isLoading to true if currentUser is still undefined
@@ -137,7 +136,6 @@ export const AuthContextProvider = ({
         };
       } finally {
         setIsLoading(false);
-        };
       }
     }
   }
@@ -160,26 +158,13 @@ export const AuthContextProvider = ({
 
     try {
       setIsLoading(true);
+
+      await updateEmail(auth.currentUser as User, username as string);
+
       await updateProfile(auth.currentUser as User, {
         displayName: displayName,
         photoURL: photoUrl,
       });
-
-      await updateEmail(auth.currentUser as User, username as string);
-            
-      const storageRef = ref(storage, `files/${photoUrl}`);
-      const uploadTask = uploadBytesResumable(storageRef, photoUrl as any);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          alert(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {});
-        }
-      );
 
       return {
         status: STATUS.SUCCESS,
@@ -196,7 +181,6 @@ export const AuthContextProvider = ({
       }
     } finally {
       setIsLoading(false);
-      }
     }
   }
 

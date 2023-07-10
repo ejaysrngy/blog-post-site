@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import * as yup from "yup";
 import nookies from "nookies";
 import AccountLayout from "./layout";
 import classes from "./account-index.module.scss";
 import Login from "@/components/Account/SignUpLogin/Login";
 
-import * as yup from "yup";
-import { ModeEdit } from "@mui/icons-material";
-import { CustomTextField } from "@/components";
-import { firebaseAdmin } from "../api/firebase/admin";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 import {
   Box,
   Modal,
@@ -23,6 +16,15 @@ import {
   CircularProgress,
 } from "@mui/material";
 import useUiStore from "@/store/uiStore";
+import { ModeEdit } from "@mui/icons-material";
+import { CustomTextField } from "@/components";
+import { storage } from "../api/firebase/config";
+import { firebaseAdmin } from "../api/firebase/admin";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 
 const schema = yup.object({
   username: yup
@@ -39,6 +41,7 @@ function AccountPage(
 ) {
   const { currentUser, isLoading, updateUserInfo } = useAuthContext();
   const openNotif = useUiStore((state: any) => state.openNotif);
+
   const reauthenticateModalisOpen = useUiStore(
     (state: any) => state.reauthenticateModalisOpen
   );
@@ -48,6 +51,7 @@ function AccountPage(
   const closeReauthenticateModal = useUiStore(
     (state: any) => state.closeReauthenticateModal
   );
+  const setUserAvatar = useUiStore((state: any) => state.setUserAvatar);
 
   const {
     register,
@@ -58,17 +62,19 @@ function AccountPage(
     resolver: yupResolver(schema),
   });
 
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const imageRef = useRef("");
   const [imagePreview, setImagePreview] = useState("");
-  const [reauthenticateUserModal, setReauthenticateUserModal] = useState(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     // populate fields if currentUser data is available
     const fields = ["displayName", "username"];
 
     if (currentUser) {
-      const { displayName, email } = currentUser;
-      console.log(displayName)
+      const { displayName, email, photoURL } = currentUser;
+
+      setImagePreview(photoURL);
 
       fields.forEach((field, index) => {
         setValue(field as any, [displayName, email].at(index));
@@ -79,7 +85,11 @@ function AccountPage(
   const onSubmit: SubmitHandler<any> = async (data) => {
     const { displayName, username } = data;
 
-    const responseUserInfo = await updateUserInfo({ displayName, username });
+    const responseUserInfo = await updateUserInfo({
+      displayName,
+      username,
+      photoUrl: imageRef.current,
+    });
 
     if (
       !responseUserInfo?.status &&
@@ -91,6 +101,46 @@ function AccountPage(
       setIsEditMode(false);
       openNotif({ status: true, text: responseUserInfo.message });
     }
+  };
+
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    let file;
+
+    if (event.currentTarget.files) {
+      // get currently uploaded file object
+      file = event.currentTarget?.files[0];
+    }
+
+    if (!file) return;
+
+    // make references of image in Firebase
+    const storageRef = ref(storage, `images/${file.name}`);
+    // upload image to Firebase
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // add a loading state or anything to disable submission of account update
+    // before the image has been uploaded
+    // uploaded photo does not reflect on account IF upload hasn't finished yet
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setIsUploading(true);
+      },
+      (error) => {
+        openNotif({ status: true, text: "Upload failed" });
+        setIsUploading(false);
+      },
+      // successful result
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          openNotif({ status: true, text: "Upload success!" });
+          imageRef.current = downloadURL;
+          setUserAvatar(downloadURL);
+        });
+        setIsUploading(false);
+      }
+    );
   };
 
   return (
@@ -145,6 +195,7 @@ function AccountPage(
                     multiple
                     type="file"
                     onChange={(e) => {
+                      handleUpload(e);
                       if (e.currentTarget.files) {
                         setImagePreview(
                           URL.createObjectURL(e.currentTarget.files[0])
@@ -157,7 +208,7 @@ function AccountPage(
                     <Button
                       component="span"
                       className={classes.button}
-                      disabled={!isEditMode}
+                      disabled={!isEditMode || isUploading}
                     >
                       Upload
                     </Button>
@@ -165,7 +216,7 @@ function AccountPage(
                 </div>
               </div>
               <div>
-                <Button type="submit" disabled={!isEditMode}>
+                <Button type="submit" disabled={!isEditMode || isUploading}>
                   SUBMIT
                 </Button>
               </div>

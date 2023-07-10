@@ -46,4 +46,9 @@ const STATUS = {
   FAILED: 0,
 };
 
-export { testData, STATUS };
+const PROFILE_MODE = {
+  CREATE: 1,
+  POSTS: 0,
+};
+
+export { testData, STATUS, PROFILE_MODE };

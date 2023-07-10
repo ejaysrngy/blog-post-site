@@ -1,3 +1,9 @@
-import { FeatPostCardsTypes } from "../FeaturedPosts/FeatPostCards/types";
-
-export interface PostCardsTypes extends FeatPostCardsTypes {}
+export interface PostCardsTypes {
+    date: string
+    excerpt: string
+    image: string
+    key?: any
+    title: string
+    slug: string
+    content: string
+}

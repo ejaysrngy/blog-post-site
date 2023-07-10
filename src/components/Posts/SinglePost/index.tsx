@@ -8,7 +8,7 @@ import { SinglePostComponentTypes } from "./types";
 import { HeaderComponent } from "@/components/common";
 
 export default function SinglePostComponent(props: SinglePostComponentTypes) {
-  const { image, title, content } = props.postDetails;
+  const { content, title, image } = props.postDetails;
 
   return (
     <div className={classes.root}>
@@ -44,10 +44,10 @@ export default function SinglePostComponent(props: SinglePostComponentTypes) {
                 return <p>{paragraph.children}</p>;
               },
               code: (code: any): any => {
-                const {className, children} = code;
+                const { className, children } = code;
 
-                const split = className.split('-');
-                const language = split[1]
+                const split = className.split("-");
+                const language = split[1];
 
                 return (
                   <SyntaxHighlighter language={language}>

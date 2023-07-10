@@ -1,9 +1,11 @@
 import React from "react";
 import classes from "./page.module.scss";
 
-import { Typography } from "@mui/material";
+import { db } from "../api/firebase/config";
+import { collection, getDocs } from "firebase/firestore";
+
 import { PostCards } from "@/components";
-import { getAllPosts } from "@/utils/posts-utils";
+import { Typography } from "@mui/material";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { FeatPostCardsTypes } from "@/components/Posts/FeaturedPosts/FeatPostCards/types";
 
@@ -22,11 +24,11 @@ export default function AllPosts(
           return (
             <div key={crypto.randomUUID()}>
               <PostCards
-                date={post.date}
+                date={post.metadata.date}
                 excerpt={post.excerpt}
                 image={post.image}
                 title={post.title}
-                slug={post.slug}
+                slug={post.metadata.slug}
                 content={post.content}
               />
             </div>
@@ -37,10 +39,15 @@ export default function AllPosts(
   );
 }
 
-export const getStaticProps: GetStaticProps = () => {
-  const result = getAllPosts();
+export const getStaticProps: GetStaticProps = async () => {
+  let posts = [] as Array<object>;
+
+  const querySnapshot = await getDocs(collection(db, "posts"));
+  querySnapshot.forEach((doc) => {
+    posts = [{ ...doc.data() }, ...posts];
+  });
 
   return {
-    props: { postData: result },
+    props: { postData: posts },
   };
 };

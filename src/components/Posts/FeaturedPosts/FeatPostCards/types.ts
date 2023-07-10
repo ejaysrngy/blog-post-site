@@ -1,9 +1,14 @@
 export interface FeatPostCardsTypes {
-    date: string
-    excerpt: string
-    image: string
-    key?: any
-    title: string
-    slug: string
-    content: string
+  key: string;
+  uid: string;
+  slug: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  image: string;
+  metadata: {
+    date: string;
+
+    slug: string;
+  };
 }
