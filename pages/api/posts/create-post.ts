@@ -40,7 +40,6 @@ async function handler(
       console.log(error);
     }
 
-    debugger;
     res.status(201).json({ message: "Success" });
   } else {
     return res.status(400).json({ message: "Invalid Request" });

@@ -3,9 +3,8 @@ import Link from "next/link";
 import AccountLayout from "../../layout";
 import classes from "../profile-posts.module.scss";
 
-import { CreatePost } from "@/components";
+import { CreateEditPost } from "@/components";
 import { Button, Typography } from "@mui/material";
-
 
 function CreateNewPost() {
   return (
@@ -18,7 +17,7 @@ function CreateNewPost() {
           </Link>
         </div>
         <div className={classes.content}>
-          <CreatePost />
+          <CreateEditPost isEdit={false} />
         </div>
       </div>
     </AccountLayout>

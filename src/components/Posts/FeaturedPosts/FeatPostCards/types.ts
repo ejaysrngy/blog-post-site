@@ -8,7 +8,6 @@ export interface FeatPostCardsTypes {
   image: string;
   metadata: {
     date: string;
-
     slug: string;
   };
 }

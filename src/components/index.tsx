@@ -6,9 +6,10 @@ const MainLayout = dynamic(() => import("./Layout/index"), {
   ssr: false,
 });
 
-import CreatePost from "./Posts/Create";
+import CreateEditPost from "./Posts/CreateEdit";
 import PostCards from "./Posts/PostCards";
 import SinglePostComponent from "./Posts/SinglePost";
+import PostProfileCards from "./Posts/PostProfileCards";
 const FeaturedPosts = dynamic(() => import("./Posts/FeaturedPosts"), {
   loading: () => <span> Loading... </span>,
 });
@@ -34,8 +35,9 @@ export {
   // Layout
   MainLayout,
   // Posts
-  CreatePost,
+  CreateEditPost,
   FeaturedPosts,
   PostCards,
+  PostProfileCards,
   SinglePostComponent,
 };
