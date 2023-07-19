@@ -1,5 +1,5 @@
-import addData from "./add-data"
+import addData from "./functions/add-data";
+import deleteData from "./functions/delete-data";
+import updateData from "./functions/update-data";
 
-export {
-    addData
-}
+export { addData, deleteData, updateData };

@@ -14,3 +14,7 @@ export interface CreatePostRequestTypes extends NextApiRequest {
 export interface CreatePostResponseTypes extends NextApiResponse {
   message: string;
 }
+
+export interface EditPostRequestTypes extends NextApiRequest {}
+
+export interface EditPostResponseTypes extends NextApiResponse {}
