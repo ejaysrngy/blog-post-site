@@ -23,7 +23,7 @@ export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
               excerpt={post.excerpt}
               content={post.content}
               image={post.image}
-              date={post.date}
+              date={post.metadata?.date}
             />
           );
         })}

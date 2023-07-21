@@ -80,6 +80,7 @@ function AccountPage(
         setValue(field as any, [displayName, email].at(index));
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const onSubmit: SubmitHandler<any> = async (data) => {
