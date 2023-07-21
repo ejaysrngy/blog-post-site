@@ -24,11 +24,11 @@ export default function AllPosts(
           return (
             <div key={crypto.randomUUID()}>
               <PostCards
-                date={post.metadata.date}
+                date={post.metadata?.date as any}
                 excerpt={post.excerpt}
                 image={post.image}
                 title={post.title}
-                slug={post.metadata.slug}
+                slug={post.metadata?.slug as any}
                 content={post.content}
               />
             </div>

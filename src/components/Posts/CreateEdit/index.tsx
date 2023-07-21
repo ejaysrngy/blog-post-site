@@ -42,6 +42,7 @@ function CreateEditPost(props: { isEdit: boolean; editData?: any }) {
       setTextbox(editData.content);
       setExcerpt(editData.excerpt);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit]);
 
   const handleSubmit = async () => {
