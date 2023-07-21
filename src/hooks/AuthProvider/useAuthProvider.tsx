@@ -67,6 +67,8 @@ export const AuthContextProvider = ({
 
     // change dependency to internal state instead of an external state
     // so that the hook won't rely on anything outside of it's scope
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   useEffect(() => {
@@ -76,6 +78,8 @@ export const AuthContextProvider = ({
     } else {
       setIsLoading(true);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   async function login(username: string, password: string) {
