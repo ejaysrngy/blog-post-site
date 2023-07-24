@@ -41,7 +41,6 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        console.log(user);
         const { accessToken, email, displayName, photoURL, uid } = user;
 
         setCurrentUser(user);
@@ -61,7 +60,6 @@ export const AuthContextProvider = ({
         setCurrentUser(null);
         nookies.set(undefined, "token", "", { path: "/" });
       }
-      console.log("Auth state changed");
     });
     return unsub;
 

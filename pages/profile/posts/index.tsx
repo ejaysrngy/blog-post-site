@@ -65,7 +65,7 @@ function AccountPosts() {
             </Button>
           </Link>
         </div>
-        <div className={classes.content}>
+        <div className={isLoading ? classes.loading : classes.content}>
           {isLoading ? (
             <Box sx={{ display: "flex" }}>
               <CircularProgress />

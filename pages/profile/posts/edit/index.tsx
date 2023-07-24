@@ -1,19 +1,25 @@
 import React from "react";
+
 import Link from "next/link";
+import useSWR from "swr";
 import AccountLayout from "../../layout";
 import classes from "../profile-posts.module.scss";
 
+import { useRouter } from "next/router";
 import { CreateEditPost } from "@/components";
-import { Button, Typography } from "@mui/material";
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
+import { getFetcher } from "@/utils/fetch-functions";
+import { Button, Typography, CircularProgress } from "@mui/material";
 
-function EditPost(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
-  const { postData } = props;
+function EditPost() {
+  const router = useRouter();
 
-  const editData = postData.at(0);
+  const { postKey } = router.query;
 
+  const { data, isLoading } = useSWR(
+    `/api/posts/fetch-posts/single-post?postKey=${postKey}`,
+    getFetcher
+  );
+  
   return (
     <AccountLayout>
       <div className={classes.root}>
@@ -23,8 +29,12 @@ function EditPost(
             <Button className={classes.button}>Back</Button>
           </Link>
         </div>
-        <div className={classes.content}>
-          <CreateEditPost isEdit={true} editData={editData} />
+        <div className={isLoading ? classes.loading : classes.content}>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <CreateEditPost isEdit={true} editData={data.at(0)} />
+          )}
         </div>
       </div>
     </AccountLayout>
@@ -32,24 +42,3 @@ function EditPost(
 }
 
 export default EditPost;
-
-export const getServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
-  const response = await fetch(
-    `
-      http://localhost:3000/api/posts/fetch-posts/single-post?postKey=${query.postKey}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const data = await response.json();
-
-  return {
-    props: { postData: data },
-  };
-};

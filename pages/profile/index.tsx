@@ -255,15 +255,18 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     // fetch cookies from the AuthProvider
     const cookies = nookies.get(ctx);
-    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+    await firebaseAdmin.auth().verifyIdToken(cookies.token);
 
     return {
-      props: { token: token },
+      props: {},
     };
   } catch (err) {
-    ctx.res.writeHead(302, { Location: "/" });
-    ctx.res.end();
-    return { props: {} as never };
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 };
 
