@@ -18,8 +18,8 @@ import {
 import useUiStore from "@/store/uiStore";
 import { ModeEdit } from "@mui/icons-material";
 import { CustomTextField } from "@/components";
-import { storage } from "../api/firebase/config";
-import { firebaseAdmin } from "../api/firebase/admin";
+import { storage } from "../..//firebase/config";
+import { firebaseAdmin } from "../../firebase/admin";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";

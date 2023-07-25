@@ -3,7 +3,7 @@ import {
   ContactHandlerResponseTypes,
 } from "./types";
 
-import { addData } from "../firebase";
+import { addData } from "../../../firebase";
 
 async function handler(
   req: ContactHandlerRequestTypes,

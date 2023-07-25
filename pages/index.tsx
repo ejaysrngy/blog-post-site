@@ -1,6 +1,6 @@
 import { HeroSection, FeaturedPosts } from "@/components";
 
-import { db } from "./api/firebase/config";
+import { db } from "../firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 
 import { GetStaticProps, InferGetStaticPropsType } from "next";
