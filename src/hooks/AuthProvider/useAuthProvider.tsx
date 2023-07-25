@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { STATUS } from "@/const";
 import useUiStore from "@/store/uiStore";
-import { auth } from "../../../pages/api/firebase/config";
+import { auth } from "../../../firebase/config";
 import { AuthContextType, UpdateUserInfoTypes } from "./types";
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);

@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { PostProfileCardTypes } from "./types";
 import { ModeEdit, Delete } from "@mui/icons-material";
-import { deleteData } from "../../../../pages/api/firebase";
+import { deleteData } from "../../../../firebase";
 
 function PostProfileCards(props: PostProfileCardTypes) {
   const { excerpt, date, image, title, documentKey, onDelete, editLink } =

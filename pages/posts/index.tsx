@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./page.module.scss";
 
-import { db } from "../api/firebase/config";
+import { db } from "../../firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 
 import { PostCards } from "@/components";

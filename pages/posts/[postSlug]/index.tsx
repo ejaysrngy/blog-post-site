@@ -1,6 +1,6 @@
 import React from "react";
 
-import { db } from "../../api/firebase/config";
+import { db } from "../../../firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 
 import { SinglePostComponent } from "@/components";
