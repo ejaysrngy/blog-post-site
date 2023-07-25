@@ -18,8 +18,8 @@ import {
 import useUiStore from "@/store/uiStore";
 import { ModeEdit } from "@mui/icons-material";
 import { CustomTextField } from "@/components";
-import { storage } from "../api/firebase/config";
-import { firebaseAdmin } from "../api/firebase/admin";
+import { storage } from "../..//firebase/config";
+import { firebaseAdmin } from "../../firebase/admin";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
@@ -255,15 +255,18 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
     // fetch cookies from the AuthProvider
     const cookies = nookies.get(ctx);
-    const token = await firebaseAdmin.auth().verifyIdToken(cookies.token);
+    await firebaseAdmin.auth().verifyIdToken(cookies.token);
 
     return {
-      props: { token: token },
+      props: {},
     };
   } catch (err) {
-    ctx.res.writeHead(302, { Location: "/" });
-    ctx.res.end();
-    return { props: {} as never };
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 };
 

@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { STATUS } from "@/const";
 import useUiStore from "@/store/uiStore";
-import { auth } from "../../../pages/api/firebase/config";
+import { auth } from "../../../firebase/config";
 import { AuthContextType, UpdateUserInfoTypes } from "./types";
 
 export const AuthContext = React.createContext<AuthContextType | null>(null);
@@ -41,7 +41,6 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        console.log(user);
         const { accessToken, email, displayName, photoURL, uid } = user;
 
         setCurrentUser(user);
@@ -61,7 +60,6 @@ export const AuthContextProvider = ({
         setCurrentUser(null);
         nookies.set(undefined, "token", "", { path: "/" });
       }
-      console.log("Auth state changed");
     });
     return unsub;
 

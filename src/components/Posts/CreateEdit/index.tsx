@@ -42,7 +42,7 @@ function CreateEditPost(props: { isEdit: boolean; editData?: any }) {
       setTextbox(editData.content);
       setExcerpt(editData.excerpt);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit]);
 
   const handleSubmit = async () => {
@@ -130,3 +130,15 @@ function CreateEditPost(props: { isEdit: boolean; editData?: any }) {
 }
 
 export default CreateEditPost;
+
+// TODO:
+// issues found
+// - can't signup; error 405
+
+// - login says success even though the Firebase console returns an error
+
+// - /profile - serveless function has timed out; 504 profile request returns an error
+//    - but I can enter the profile/posts
+// - edit has same error with /profile
+// - POSSIBLE FIX: https://github.com/vercel/next.js/discussions/12447
+//    - use useSWR or useEffect to call fetched data first
