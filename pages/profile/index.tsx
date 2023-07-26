@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import * as yup from "yup";
 import AccountLayout from "./layout";
-import { useRouter } from "next/router";
 import classes from "./account-index.module.scss";
 import Login from "@/components/Account/SignUpLogin/Login";
 
@@ -14,9 +13,11 @@ import {
   Avatar,
   Typography,
   IconButton,
+  LinearProgress,
   CircularProgress,
 } from "@mui/material";
 import { parseCookies } from "nookies";
+import { useRouter } from "next/router";
 import useUiStore from "@/store/uiStore";
 import { ModeEdit } from "@mui/icons-material";
 import { CustomTextField } from "@/components";
@@ -46,8 +47,8 @@ function AccountPage() {
     getFetcher
   );
 
-  console.log(data);
-
+  // alternative for SSR due to Vercel limitations
+  // set a circular progress to show data is being fetched
   useEffect(() => {
     if (!swrLoading) {
       // check whether the response
@@ -81,10 +82,13 @@ function AccountPage() {
     resolver: yupResolver(schema),
   });
 
+  // used useRef to get the image name for the payload
   const imageRef = useRef("");
+
   const [imagePreview, setImagePreview] = useState("");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [progressBar, setProgressBar] = useState(0);
 
   useEffect(() => {
     // populate fields if currentUser data is available
@@ -108,7 +112,9 @@ function AccountPage() {
     const responseUserInfo = await updateUserInfo({
       displayName,
       username,
-      photoUrl: imageRef.current,
+      // if used DID NOT edit photo but edited other parts of the form
+      // retain the same file used from data fetching
+      photoUrl: imagePreview ? imagePreview : imageRef.current,
     });
 
     if (
@@ -139,12 +145,19 @@ function AccountPage() {
     // upload image to Firebase
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // add a loading state or anything to disable submission of account update
-    // before the image has been uploaded
-    // uploaded photo does not reflect on account IF upload hasn't finished yet
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+        // this formula converts the solution into a decimal that's between 0 - 100
+        // to represent a progress "bar"
+        // "Linear Interpolation"
+
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgressBar(progress);
+
+        // added loading for upload to prevent deletion of image if user IMMEDIATELY
+        // submits before image hase been uploaded
         setIsUploading(true);
       },
       (error) => {
@@ -207,6 +220,16 @@ function AccountPage() {
                     src={imagePreview}
                     sx={{ width: 200, height: 200 }}
                   />
+                  {/* only show the progress bar
+                    if user is uploading an image
+                  */}
+                  {isUploading && (
+                    <LinearProgress
+                      variant="determinate"
+                      value={progressBar}
+                      sx={{ width: "50%" }}
+                    />
+                  )}
                   <input
                     accept="image/*"
                     className={classes.input}
@@ -269,6 +292,5 @@ function AccountPage() {
     </AccountLayout>
   );
 }
-
 
 export default AccountPage;
