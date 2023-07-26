@@ -24,8 +24,8 @@ function PostProfileCards(props: PostProfileCardTypes) {
     <div className={classes.root}>
       <Card sx={{ width: "30vw" }}>
         <CardMedia component="img" height="200" image={image} alt={image} />
-        <CardContent>
-          <Typography variant="h5" component="div">
+        <CardContent className={classes.content}>
+          <Typography variant="h5" component="div" className={classes.title}>
             {title}
           </Typography>
           <Typography>Posted on: {convertedDate}</Typography>
