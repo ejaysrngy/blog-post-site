@@ -27,6 +27,12 @@ const nextConfig = removeImports({
       transform: "@material-ui/icons/{{ matches.[1] }}/{{member}}",
     },
   },
+  output: 'export',
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
+  assetPrefix: './',
 });
 
 module.exports = nextConfig;
