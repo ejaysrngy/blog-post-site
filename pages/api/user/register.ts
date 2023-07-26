@@ -2,10 +2,7 @@ import { RegisterRequestTypes, RegisterResponseTypes } from "./types";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-async function handler(
-  req: RegisterRequestTypes,
-  res: RegisterResponseTypes
-) {
+async function handler(req: RegisterRequestTypes, res: RegisterResponseTypes) {
   const auth = getAuth();
 
   if (req.method === "POST") {
@@ -16,7 +13,7 @@ async function handler(
       username.trim() === "" || // if username/email has whitespace
       !password || // if password is empty
       password.trim() === "" || // if password has whitespace
-      password.length < 6 
+      password.length < 6
     ) {
       res
         .status(422)
@@ -25,9 +22,21 @@ async function handler(
       return;
     }
 
-    await createUserWithEmailAndPassword(auth, username, password);
-    res.status(200).json({ message: "Sign up success!", success: true });
-    res.end();
+    try {
+      await createUserWithEmailAndPassword(auth, username, password);
+
+      res.status(200).json({ message: "Account created, welcome!", success: true });
+      res.end();
+    } catch (e: any) {
+      let message = "";
+
+      if (e.code.includes("email-already-in-use")) {
+        message = "Email is already in use, please try again";
+      }
+
+      res.status(400).json({ success: true, error: message });
+      res.end();
+    }
   }
 }
 

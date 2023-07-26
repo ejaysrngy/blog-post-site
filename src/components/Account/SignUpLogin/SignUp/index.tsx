@@ -17,6 +17,7 @@ import {
   InputAdornment,
   FormHelperText,
 } from "@mui/material";
+import useUiStore from "@/store/uiStore";
 
 const schema = yup.object({
   username: yup
@@ -47,13 +48,15 @@ function SignUp(props: { backBtnHandler: () => void }) {
     resolver: yupResolver(schema),
   });
 
+  const openNotif = useUiStore((state: any) => state.openNotif);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<SignUpTypes> = async (data) => {
     const { username, password } = data;
 
-    await fetch("/api/user/register", {
+    const response = await fetch("/api/user/register", {
       method: "POST",
       body: JSON.stringify({
         username: username,
@@ -63,6 +66,17 @@ function SignUp(props: { backBtnHandler: () => void }) {
         "Content-Type": "application/json",
       },
     });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      openNotif({ status: true, text: responseData.message });
+    } else {
+      openNotif({
+        status: true,
+        text: responseData.error,
+      });
+    }
   };
 
   const handleShowPassword = () => {
