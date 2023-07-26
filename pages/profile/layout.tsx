@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import classes from "./layout.module.scss";
-
-import { Typography } from "@mui/material";
 import useAccountStore from "@/store/accountStore";
 
-function AccountLayout(props: { children: JSX.Element }) {
-  const { children } = props;
+import { Typography, CircularProgress } from "@mui/material";
+
+function AccountLayout(props: { isLoading?: Boolean; children: JSX.Element }) {
+  const { children, isLoading } = props;
   const user = useAccountStore((state) => state.user);
 
   const { email, username } = user;
@@ -15,7 +15,9 @@ function AccountLayout(props: { children: JSX.Element }) {
     <div className={classes.root}>
       <aside className={classes.sidebar}>
         <div className={classes.name}>
-          <Typography variant="h5">Hello, {username ? username : email}!</Typography>
+          <Typography variant="h5">
+            Hello, {username ? username : email}!
+          </Typography>
         </div>
         <div className={classes.menu}>
           {(
@@ -32,7 +34,9 @@ function AccountLayout(props: { children: JSX.Element }) {
           })}
         </div>
       </aside>
-      <div className={classes.contents}>{children}</div>
+      <div className={classes.contents}>
+        {isLoading ? <CircularProgress /> : children}
+      </div>
     </div>
   );
 }
