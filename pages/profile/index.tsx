@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
+import useSWR from "swr";
 import * as yup from "yup";
-import nookies from "nookies";
 import AccountLayout from "./layout";
+import { useRouter } from "next/router";
 import classes from "./account-index.module.scss";
 import Login from "@/components/Account/SignUpLogin/Login";
 
@@ -15,16 +16,16 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
+import { parseCookies } from "nookies";
 import useUiStore from "@/store/uiStore";
 import { ModeEdit } from "@mui/icons-material";
 import { CustomTextField } from "@/components";
 import { storage } from "../..//firebase/config";
-import { firebaseAdmin } from "../../firebase/admin";
+import { getFetcher } from "@/utils/fetch-functions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 
 const schema = yup.object({
   username: yup
@@ -36,9 +37,27 @@ const schema = yup.object({
 
 type FormData = yup.InferType<typeof schema>;
 
-function AccountPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+function AccountPage() {
+  const router = useRouter();
+  const { token } = parseCookies();
+
+  const { data, isLoading: swrLoading } = useSWR(
+    `/api/user/verify?userToken=${token}`,
+    getFetcher
+  );
+
+  console.log(data);
+
+  useEffect(() => {
+    if (!swrLoading) {
+      // check whether the response
+      // returns a success
+      if (!data?.success) {
+        router.push("/");
+      }
+    }
+  }, [data]);
+
   const { currentUser, isLoading, updateUserInfo } = useAuthContext();
   const openNotif = useUiStore((state: any) => state.openNotif);
 
@@ -145,7 +164,7 @@ function AccountPage(
   };
 
   return (
-    <AccountLayout>
+    <AccountLayout isLoading={swrLoading}>
       <div className={classes.root}>
         <div className={classes.header}>
           <Typography variant="h4"> Account </Typography>
@@ -251,23 +270,5 @@ function AccountPage(
   );
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  try {
-    // fetch cookies from the AuthProvider
-    const cookies = nookies.get(ctx);
-    await firebaseAdmin.auth().verifyIdToken(cookies.token);
-
-    return {
-      props: {},
-    };
-  } catch (err) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-};
 
 export default AccountPage;
