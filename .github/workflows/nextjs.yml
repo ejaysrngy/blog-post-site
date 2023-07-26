@@ -24,10 +24,7 @@ jobs:
 
       - name: Build my App
         run: npm run build && npm run export && touch ./out/.nojekyll
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
+        env:
           NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
           NEXT_PUBLIC_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_AUTH_DOMAIN }}
           NEXT_PUBLIC_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_PROJECT_ID }}
@@ -38,5 +35,8 @@ jobs:
           NEXT_PUBLIC_PRIVATE_KEY_ID: ${{ secrets.NEXT_PUBLIC_PRIVATE_KEY_ID }}
           NEXT_PUBLIC_PRIVATE_KEY: ${{ secrets.NEXT_PUBLIC_PRIVATE_KEY }}
           NEXT_PUBLIC_CLIENT_EMAIL: ${{ secrets.NEXT_PUBLIC_CLIENT_EMAIL }}
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
           BRANCH: public # The branch the action will deploy to
           FOLDER: out # The folder the action will deploy to
