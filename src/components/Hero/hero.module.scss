@@ -1,6 +1,8 @@
+@import 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
+
 .container {
   display: flex;
-  padding: 4em 2em;
+  padding: 6em 2em 4em 2em;
   justify-content: center;
   background: #E1D4BB;
 }
@@ -14,6 +16,12 @@
   justify-content: flex-start;
 }
 
-.text {
+.title {
   font-size: 2em;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.subtext {
+  font-family: 'Poppins', sans-serif;
 }
