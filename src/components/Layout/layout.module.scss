@@ -3,7 +3,23 @@
 // }
 
 .main {
-    display: flex;
-    flex: 1 0 auto;
-    flex-direction: column;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  // background: rgb(255, 255, 255);
+  //   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  //   backdrop-filter: blur(6.7px);
+  //   -webkit-backdrop-filter: blur(6.7px);
+}
+
+.bg {
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  filter: blur(20px);
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('https://images.unsplash.com/photo-1664262283640-a4b7728a497d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=613&q=80');
 }

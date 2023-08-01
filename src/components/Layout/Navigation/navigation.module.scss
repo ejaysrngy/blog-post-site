@@ -1,7 +1,10 @@
+@import "../../../styles/main";
+
 .header {
   top: 0;
   width: 100%;
   padding: 1em;
+  z-index: 9999;
   position: fixed;
 }
 
@@ -22,14 +25,14 @@
 
   a {
     color: inherit;
-    font-weight: bold;
+    font-weight: 400;
     text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-poppins;
   }
 }
 
 .logo {
-  padding: 0 1em
+  padding: 0 1em;
 }
 
 .login {

@@ -39,7 +39,8 @@ function Navigation(props: NavigationTypes) {
   return (
     <header className={classes.header}>
       <nav className={classes.nav}>
-        <div className={classes.logo}>Test</div>
+        {/* no logo yet */}
+        {/* <div className={classes.logo}>Test</div> */}
         <ul className={classes.navlists}>
           {navLinks?.map((item, index) => {
             return (

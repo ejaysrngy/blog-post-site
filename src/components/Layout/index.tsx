@@ -26,7 +26,11 @@ export default function MainLayout(props: LayoutTypes) {
         autoHideDuration={5000}
         message={notification.text}
       />
-      <main className={classes.main}>{children}</main>
+      <main className={classes.main}>
+        {children}
+        {/* bg shapes */}
+        <div className={classes.bg}/>
+      </main>
     </>
   );
 }
