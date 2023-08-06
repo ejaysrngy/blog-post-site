@@ -61,7 +61,7 @@ function ContactForm() {
         <Typography variant="h1">Let us know what you think!</Typography>
       </div>
       <div className={classes.formContainer}>
-        <InputLabel htmlFor="form-name">Name</InputLabel>
+        <InputLabel htmlFor="form-name" className={classes.formLabel}>Name</InputLabel>
         <TextField
           required
           fullWidth
@@ -69,7 +69,7 @@ function ContactForm() {
           id="form-name"
           onChange={handleNameInput}
         />
-        <InputLabel htmlFor="form-email">Email</InputLabel>
+        <InputLabel htmlFor="form-email" className={classes.formLabel}>Email</InputLabel>
         <TextField
           fullWidth
           required
@@ -77,7 +77,7 @@ function ContactForm() {
           id="form-email"
           onChange={handleEmailInput}
         />
-        <InputLabel htmlFor="form-feedback">Feedback/Suggestions</InputLabel>
+        <InputLabel htmlFor="form-feedback" className={classes.formLabel}>Feedback/Suggestions</InputLabel>
         <TextField
           required
           fullWidth

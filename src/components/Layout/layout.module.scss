@@ -1,15 +1,10 @@
-// .layout {
-//     height: 100%;
-// }
+@import "../../styles/main.scss";
 
 .main {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  // background: rgb(255, 255, 255);
-  //   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  //   backdrop-filter: blur(6.7px);
-  //   -webkit-backdrop-filter: blur(6.7px);
+  background-color: $off-white;
 }
 
 .bg {

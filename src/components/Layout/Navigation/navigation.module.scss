@@ -37,5 +37,10 @@
 
 .login {
   flex: 1 0 auto;
-  padding: 0 1em;
+  padding: 0 0 0 1em;
+}
+
+.signupBtn {
+  background-color: $dark-blue;
+  border-radius: 1em;
 }
