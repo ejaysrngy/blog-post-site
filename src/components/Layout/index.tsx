@@ -29,7 +29,7 @@ export default function MainLayout(props: LayoutTypes) {
       <main className={classes.main}>
         {children}
         {/* bg shapes */}
-        <div className={classes.bg}/>
+        {/* <div className={classes.bg}/> */}
       </main>
     </>
   );

@@ -78,7 +78,7 @@ function Navigation(props: NavigationTypes) {
             </>
           ) : (
             <>
-              <Button variant="contained" onClick={handleClick}>
+              <Button variant="contained" onClick={handleClick} className={classes.signupBtn}>
                 Sign Up / Login
               </Button>
               <Popover
