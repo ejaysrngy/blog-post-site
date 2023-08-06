@@ -1,39 +1,55 @@
-.root {
-    gap: 1vw;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+@import "../../../styles/main.scss";
 
-    @media screen and (max-width: 900px) {
-        flex-direction: column;
-    }
+.root {
+  gap: 1vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+  }
 }
 
 .textContainer {
-    flex: 1;
-    padding: 2em;
-    max-width: 40vw;
+  flex: 1;
+  padding: 2em;
+  max-width: 40vw;
 
-    @media screen and (max-width: 900px) {
-        max-width: 100%;
-    }
+  @media screen and (max-width: 900px) {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-weight: 500;
+    font-family: $font-poppins;
+  }
 }
 
 .formContainer {
-    gap: 1vh;
-    width: 35vw;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  gap: 1vh;
+  width: 35vw;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 
-    @media screen and (max-width: 900px) {
-        width: 100%;
-    }
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
+
+  .formLabel {
+    font-family: $font-poppins;
+  }
 }
 
 .buttonContainer {
-    display: flex;
-    margin-top: 1em;
-    justify-content: flex-end;
+  display: flex;
+  margin-top: 1em;
+  justify-content: flex-end;
+
+  button {
+    color: $mid-blue;
+    border-radius: 1em;
+  }
 }
