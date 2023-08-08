@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import classes from './custom-pwinput.module.scss'
 
 import { CustomPasswordInputPropTypes } from "./types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -22,7 +23,7 @@ function CustomPasswordInput(props: CustomPasswordInputPropTypes) {
 
   return (
     <>
-      <InputLabel htmlFor={inputId}> {fieldName} </InputLabel>
+      <InputLabel htmlFor={inputId} className={classes.fieldLabel}> {fieldName} </InputLabel>
       <OutlinedInput
         fullWidth
         size={size}

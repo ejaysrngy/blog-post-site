@@ -1,35 +1,52 @@
+@import "../../../../styles/main.scss";
+
 .root {
-    gap: 1em;
-    display: flex;
-    flex-direction: column;
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
-    text-align: center;
+  text-align: center;
+
+  h6 {
+    font-family: $font-poppins;
+  }
 }
 
 .fields {
-    gap: 1em;
-    display: flex;
-    flex-direction: column;
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
 
-    p {
-        color: #ff0000;
-    }
+  p {
+    color: #ff0000;
+  }
 }
 
 .btnContainer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+
+  button {
+    border-radius: 1em;
+    background-color: $dark-blue;
+    font-family: $font-poppins;
+  }
 }
 
 .createAccountContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-    button {
-        font-weight: bold;
-        text-transform: none;
-    }
+  p {
+    font-family: $font-poppins;
+  }
+
+  button {
+    font-weight: bold;
+    text-transform: none;
+    font-family: $font-poppins;
+  }
 }
