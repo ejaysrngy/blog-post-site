@@ -10,7 +10,7 @@ function FeatPostCards(props: FeatPostCardsTypes) {
   const { excerpt, date, image, title, slug } = props;
 
   return (
-    <Link href={`/posts/${slug}`} style={{ textDecoration: "none" }}>
+    <Link href={`/posts/${slug}`} style={{ textDecoration: "none" }} className={classes.link}>
       <Card className={classes.container}>
         <div className={classes.imageContainer}>
           <Image
