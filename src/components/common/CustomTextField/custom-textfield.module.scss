@@ -1,3 +1,5 @@
+@import "../../../styles/main.scss";
+
 .root {
     display: flex;
     flex-direction: column;
@@ -5,4 +7,8 @@
     p {
         color: #ff0000;
     }
+}
+
+.fieldLabel {
+    font-family: $font-poppins;
 }

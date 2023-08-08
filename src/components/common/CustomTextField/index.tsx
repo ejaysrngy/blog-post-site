@@ -19,6 +19,7 @@ function CustomTextField(props: CustomTextFieldPropTypes) {
     <div className={classes.root}>
       <InputLabel
         htmlFor={inputId}
+        className={classes.fieldLabel}
         style={{ color: disabled ? "#999999" : "#000000" }}
       >
         {" "}
