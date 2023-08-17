@@ -64,12 +64,17 @@ function Navigation(props: NavigationTypes) {
                     isLink: true,
                     link: "profile",
                     name: "Profile",
-                    handeClickFn: () => {},
+                    handeClickFn: () => {
+                      handleClose();
+                    },
                     key: crypto.randomUUID(),
                   },
                   {
                     name: "Logout",
-                    handeClickFn: handleLogout,
+                    handeClickFn: () => {
+                      handleLogout();
+                      handleClose();
+                    },
                     key: crypto.randomUUID(),
                   },
                 ]}
@@ -78,7 +83,11 @@ function Navigation(props: NavigationTypes) {
             </>
           ) : (
             <>
-              <Button variant="contained" onClick={handleClick} className={classes.signupBtn}>
+              <Button
+                variant="contained"
+                onClick={handleClick}
+                className={classes.signupBtn}
+              >
                 Sign Up / Login
               </Button>
               <Popover

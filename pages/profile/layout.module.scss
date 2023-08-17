@@ -1,3 +1,5 @@
+@import "../../src/styles/main.scss";
+
 .root {
   width: 100%;
   height: 100%;
@@ -10,11 +12,22 @@
     flex: 0 1 auto;
     padding: 1em 2em;
 
+    .name {
+      h5 {
+        font-weight: 500;
+        font-family: $font-poppins;
+      }
+    }
+
     .menu {
       gap: 1em;
       display: flex;
       margin-top: 2em;
       flex-direction: column;
+
+      p {
+        font-family: $font-poppins;
+      }
 
       a {
         color: inherit;

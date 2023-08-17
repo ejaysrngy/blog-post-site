@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import AccountLayout from "../layout";
 import useUiStore from "@/store/uiStore";
-import classes from "./profile-posts.module.scss";
+import classes from "./profile-page-posts.module.scss";
 import useAccountStore from "@/store/accountStore";
 
 import { ModeEdit } from "@mui/icons-material";
