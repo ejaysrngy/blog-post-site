@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import { FeatPostsPageComponentTypes } from "./types";
 
 export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
-  const {postsData} = props
+  const { postsData } = props;
 
   return (
     <section className={classes.root}>
@@ -18,7 +18,7 @@ export default function FeaturedPosts(props: FeatPostsPageComponentTypes) {
           return (
             <FeatPostCards
               key={crypto.randomUUID()}
-              slug={post.slug}
+              slug={post.metadata?.slug as string}
               title={post.title}
               excerpt={post.excerpt}
               content={post.content}
