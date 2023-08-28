@@ -136,9 +136,3 @@ export default CreateEditPost;
 // - can't signup; error 405
 
 // - login says success even though the Firebase console returns an error
-
-// - /profile - serveless function has timed out; 504 profile request returns an error
-//    - but I can enter the profile/posts
-// - edit has same error with /profile
-// - POSSIBLE FIX: https://github.com/vercel/next.js/discussions/12447
-//    - use useSWR or useEffect to call fetched data first

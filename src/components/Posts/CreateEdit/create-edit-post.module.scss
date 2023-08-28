@@ -1,8 +1,14 @@
+@import "../../../styles/main.scss";
+
 .root {
   gap: 1em;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  label, button {
+    font-family: $font-poppins;
+  }
 }
 
 .w-md-editor {
@@ -16,3 +22,4 @@
 .w-md-editor-toolbar {
   height: 100px;
 }
+
