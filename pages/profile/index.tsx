@@ -112,7 +112,7 @@ function AccountPage() {
     const responseUserInfo = await updateUserInfo({
       displayName,
       username,
-      // if used DID NOT edit photo but edited other parts of the form
+      // if user DID NOT edit photo but edited other parts of the form
       // retain the same file used from data fetching
       photoUrl: imagePreview ? imagePreview : imageRef.current,
     });
@@ -168,7 +168,10 @@ function AccountPage() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           openNotif({ status: true, text: "Upload success!" });
+          // save both on preview and imageRef when user updates their
+          // details only
           imageRef.current = downloadURL;
+          setImagePreview(downloadURL)
           setUserAvatar(downloadURL);
         });
         setIsUploading(false);

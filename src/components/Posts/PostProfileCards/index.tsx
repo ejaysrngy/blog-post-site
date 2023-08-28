@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import classes from "./post-profile.module.scss";
+import Image from "next/image";
 
 import {
   Card,
@@ -22,8 +23,10 @@ function PostProfileCards(props: PostProfileCardTypes) {
 
   return (
     <div className={classes.root}>
-      <Card sx={{ width: "30vw" }}>
-        <CardMedia component="img" height="200" image={image} alt={image} />
+      <Card className={classes.cardRoot}>
+        <div className={classes.imageContainer}>
+          <Image src={image} alt={title} fill style={{ objectFit: "cover" }} />
+        </div>
         <CardContent className={classes.content}>
           <Typography variant="h5" component="div" className={classes.title}>
             {title}

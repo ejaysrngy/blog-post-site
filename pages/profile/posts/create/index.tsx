@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import AccountLayout from "../../layout";
-import classes from "../profile-posts.module.scss";
+import classes from "../profile-page-posts.module.scss";
 
 import { CreateEditPost } from "@/components";
 import { Button, Typography } from "@mui/material";

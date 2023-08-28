@@ -1,6 +1,8 @@
+@import "../../../src/styles/main.scss";
+
 .root {
   gap: 1em;
-  height: 45em;
+  height: 30em;
   display: flex;
   flex-direction: column;
 }
@@ -9,6 +11,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  h4, .button{
+    font-family: $font-poppins;
+  }
 
   .button {
     gap: 0.5em;
