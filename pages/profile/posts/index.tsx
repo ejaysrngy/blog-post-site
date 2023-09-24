@@ -19,7 +19,11 @@ function AccountPosts() {
   const { uid } = useAccountStore((state: any) => state.user);
   const { data, mutate, isLoading } = useSWR(
     `/api/posts/fetch-posts/user?user=${uid}`,
-    getFetcher
+    getFetcher,
+    {
+      initialData: [],
+      revalidateOnMount: true,
+    }
   );
   const { cache } = useSWRConfig();
 
