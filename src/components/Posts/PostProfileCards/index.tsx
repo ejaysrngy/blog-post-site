@@ -40,12 +40,7 @@ function PostProfileCards(props: PostProfileCardTypes) {
               <ModeEdit color={"inherit"} />
             </IconButton>
           </Link>
-          <IconButton
-            onClick={() => {
-              deleteData("posts", documentKey as string);
-              onDelete();
-            }}
-          >
+          <IconButton onClick={onDelete}>
             <Delete color={"inherit"} />
           </IconButton>
         </CardActions>
