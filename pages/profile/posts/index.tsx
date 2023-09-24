@@ -6,10 +6,12 @@ import AccountLayout from "../layout";
 import useUiStore from "@/store/uiStore";
 import classes from "./profile-page-posts.module.scss";
 import useAccountStore from "@/store/accountStore";
+import { useSWRConfig } from "swr";
 
 import { ModeEdit } from "@mui/icons-material";
 import { PostProfileCards } from "@/components";
 import { getFetcher } from "@/utils/fetch-functions";
+import { deleteData } from "../../../firebase";
 import { Box, Button, Typography, CircularProgress } from "@mui/material";
 import { FeatPostCardsTypes } from "@/components/Posts/FeaturedPosts/FeatPostCards/types";
 
@@ -19,39 +21,35 @@ function AccountPosts() {
     `/api/posts/fetch-posts/user?user=${uid}`,
     getFetcher
   );
+  const { cache } = useSWRConfig();
 
   const openNotif = useUiStore((state: any) => state.openNotif);
 
   const fetchNewData = async () => {
     // enclose the whole fetch function in a new Promise
     // since it returns a Promise
-    const data = new Promise(async (resolve) => {
-      const response = await fetch(`/api/posts/fetch-posts/user?user=${uid}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      resolve(response.json());
-    });
-
     let message = "";
 
-    // use then catch methods to "extract" the data
-    data
-      .then((res) => {
-        // pass in data for mutate to return new post list
-        // immediately
-        mutate(res, true);
-        message = "Successfully deleted your post!";
-      })
-      .catch(
-        () =>
-          (message =
-            "There was a problem deleting your post. Please try again.")
-      )
-      .finally(() => openNotif({ status: true, text: message }));
+    const response = await fetch(`/api/posts/fetch-posts/user?user=${uid}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    try {
+      await response.json();
+      message = "Successfully deleted your post!";
+    } catch (err) {
+      message = "There was a problem deleting your post. Please try again.";
+    }
+
+    openNotif({ status: true, text: message });
+    // delete cached data list
+    cache.delete(`/api/posts/fetch-posts/user?user=${uid}`);
+    // refetch data to show updated list
+    // TODO: optimize user experience
+    mutate();
   };
 
   return (
@@ -83,7 +81,10 @@ function AccountPosts() {
                     documentKey={post.key}
                     date={post.metadata?.date as any}
                     slug={post.metadata?.slug as any}
-                    onDelete={fetchNewData}
+                    onDelete={() => {
+                      fetchNewData();
+                      deleteData("posts", post.key);
+                    }}
                     editLink={`posts/edit?postKey=${post.key}`}
                   />
                 );

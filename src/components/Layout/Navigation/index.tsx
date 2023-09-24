@@ -7,6 +7,7 @@ import useAccountStore from "@/store/accountStore";
 import { NavigationTypes } from "./types";
 import { useRouter } from "next/navigation";
 import { Button, Popover, Avatar } from "@mui/material";
+import useScrollPosition from "@/hooks/useScrollPosition";
 import { MenuComponent, SignUpLoginContainer } from "@/components";
 import { useAuthContext } from "@/hooks/AuthProvider/useAuthProvider";
 
@@ -14,6 +15,7 @@ function Navigation(props: NavigationTypes) {
   const { navLinks } = props;
   const router = useRouter();
   const { logout } = useAuthContext();
+  const scrollPosition = useScrollPosition();
   const user = useAccountStore((state: any) => state.user);
 
   // used useState instead of Ref since the first click doesnt not store the ref
@@ -37,7 +39,12 @@ function Navigation(props: NavigationTypes) {
   };
 
   return (
-    <header className={classes.header}>
+    <header
+      className={`
+    ${classes.header} 
+    
+    `}
+    >
       <nav className={classes.nav}>
         {/* no logo yet */}
         {/* <div className={classes.logo}>Test</div> */}

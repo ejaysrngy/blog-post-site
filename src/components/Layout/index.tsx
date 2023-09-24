@@ -23,7 +23,7 @@ export default function MainLayout(props: LayoutTypes) {
       <Snackbar
         onClose={closeNotif}
         open={notification.status}
-        autoHideDuration={5000}
+        autoHideDuration={2000}
         message={notification.text}
       />
       <main className={classes.main}>
